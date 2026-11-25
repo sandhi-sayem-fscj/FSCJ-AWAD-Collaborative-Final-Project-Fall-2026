@@ -13,8 +13,8 @@ $fields->addField('city');
 $fields->addField('state');
 $fields->addField('postal_code');
 $fields->addField('country_code', '', FALSE);
-$fields->addField('phone', 'Use (999) 999-9999 format.', FALSE);
-$fields->addField('email', 'Invalid email address.');
+$fields->addField('phone', '', FALSE);
+$fields->addField('email', '');
 $fields->addField('password');
 
 $action = filter_input(INPUT_POST, 'action');
@@ -62,7 +62,7 @@ if ($action == 'search_customers') {
     $validate->text('last_name', $last_name);
     $validate->text('address', $address);
     $validate->text('city', $city);
-    $validate->state('state', $state);
+    $validate->text('state', $state);
     $validate->postalCode('postal_code', $postal_code);
     $validate->phone('phone', $phone);
     $validate->email('email', $email);
@@ -70,15 +70,28 @@ if ($action == 'search_customers') {
 
     // load customer_display view with error messages if validation fails
     if($fields->hasErrors()){
+        $customer = array(
+            'customerID' => $customer_id,
+            'firstName' => $first_name,
+            'lastName' => $last_name,
+            'address' => $address,
+            'city' => $city,
+            'state' => $state,
+            'postalCode' => $postal_code,
+            'countryCode' => $country_code,
+            'phone' => $phone,
+            'email' => $email,
+            'password' => $password
+        );
         include('customer_display.php');
         exit();
-    } else {
-        include('customer_search.php');
     }
     
     update_customer($customer_id, $first_name, $last_name,
             $address, $city, $state, $postal_code, $country_code,
             $phone, $email, $password);
+
+    include('customer_search.php');
 
     header("Location: .");
 }

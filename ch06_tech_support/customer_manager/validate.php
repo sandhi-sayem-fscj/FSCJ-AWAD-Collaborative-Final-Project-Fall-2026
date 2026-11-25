@@ -36,19 +36,19 @@ class Validate
         return $field;
     }
 
-    // validate a field with generic pattern and set/clear error message
-    public function pattern(&$field, $pattern, $message){
-
-        $match = preg_match($pattern, $field->getValue());
-        if($match === FALSE){
-            $field->setErrorMessage('Error testing field.');
-        } else if ($match != 1){
-            $field->setErrorMessage($message);
-        } else {
-            $field->clearErrorMessage();
-        }
-        return $field;
-    }
+//    // validate a field with generic pattern and set/clear error message
+//    public function pattern(&$field, $pattern, $message){
+//
+//        $match = preg_match($pattern, $field->getValue());
+//        if($match === FALSE){
+//            $field->setErrorMessage('Error testing field.');
+//        } else if ($match != 1){
+//            $field->setErrorMessage($message);
+//        } else {
+//            $field->clearErrorMessage();
+//        }
+//        return $field;
+//    }
 
     public function postalCode($name, $value){
         // text field check
@@ -56,16 +56,28 @@ class Validate
     }
 
     public function phone($name, $value){
+        // skip validation if field is not required and empty
+        if(empty($value)) return;
+
         // text field check
         $message = 'Use (999) 999-9999 format.';
         $field = $this->text($name, $value, 1, 14);
 
+        // overriding the min/max error message if the text field check failed
         if($field->hasError()){
             $field->setErrorMessage($message);
             return;
+            // validate phone number format
         } else {
             $pattern = '/^\(\d{3}\) \d{3}-\d{4}$/';
-            $this->pattern($field, $pattern, $message);
+            $match = preg_match($pattern, $value);
+            if($match === FALSE){
+                $field->setErrorMessage('Error testing field.');
+            } else if ($match != 1){
+                $field->setErrorMessage($message);
+            } else {
+                $field->clearErrorMessage();
+            }
         }
     }
 
