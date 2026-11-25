@@ -11,27 +11,33 @@
         <label>First Name:</label>
         <input type="text" name="first_name" 
                value="<?php echo htmlspecialchars($customer['firstName']); ?>"><br>
+        <?php echo $fields->getField('first_name')->getHTML(); ?><br>
 
         <label>Last Name:</label>
         <input type="text" name="last_name" 
                value="<?php echo htmlspecialchars($customer['lastName']); ?>"><br>
+        <?php echo $fields->getField('last_name')->getHTML(); ?><br>
 
         <label>Address:</label>
         <input type="text" name="address" 
                value="<?php echo htmlspecialchars($customer['address']); ?>" 
                size="50"><br>
+        <?php echo $fields->getField('address')->getHTML(); ?><br>
 
         <label>City:</label>
         <input type="text" name="city" 
                value="<?php echo htmlspecialchars($customer['city']); ?>"><br>
+        <?php echo $fields->getField('city')->getHTML(); ?><br>
 
         <label>State:</label>
         <input type="text" name="state" 
                value="<?php echo htmlspecialchars($customer['state']); ?>"><br>
+        <?php echo $fields->getField('state')->getHTML(); ?><br>
 
         <label>Postal Code:</label>
         <input type="text" name="postal_code" 
                value="<?php echo htmlspecialchars($customer['postalCode']); ?>"><br>
+        <?php echo $fields->getField('postal_code')->getHTML(); ?><br>
 
         <label>Country Code:</label>
         <input type="text" name="country_code" 
@@ -40,15 +46,18 @@
         <label>Phone:</label>
         <input type="text" name="phone" 
                value="<?php echo htmlspecialchars($customer['phone']); ?>"><br>
+        <?php echo $fields->getField('phone')->getHTML(); ?><br>
 
         <label>Email:</label>
         <input type="text" name="email" 
                value="<?php echo htmlspecialchars($customer['email']); ?>" 
                size="50"><br>
+        <?php echo $fields->getField('email')->getHTML(); ?><br>
 
         <label>Password:</label>
         <input type="text" name="password" 
                value="<?php echo htmlspecialchars($customer['password']); ?>"><br>
+        <?php echo $fields->getField('password')->getHTML(); ?><br>
 
         <label>&nbsp;</label>
         <input type="submit" value="Update Customer"><br>
